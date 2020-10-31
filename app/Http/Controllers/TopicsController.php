@@ -15,8 +15,8 @@ class TopicsController extends Controller
     }
 
 	public function index()
-	{
-		$topics = Topic::paginate();
+	{     //默認的分頁是15
+		$topics = Topic::with('user', 'category')->paginate(30);
 		return view('topics.index', compact('topics'));
 	}
 
