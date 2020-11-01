@@ -8,10 +8,14 @@ use App\Models\Category;
 
 class CategoriesController extends Controller
 {
-    public function show(Category $category)
+    public function show(Category $category, Request $request, Topic $topic)
     {
-        // 讀取分類ID關聯的話題，並按每20條來分頁
-        $topics = Topic::where('category_id', $category->id)->paginate(20);
+        //讀取分類ID關聯的話題，並按每20條分頁
+        $topics = $topic->withOrder($request->order)
+                        ->where('category_id', $category->id)
+                        ->with('user', 'category')   // 預加载防止 N+1 問题
+                        ->paginate(20);
+
         // 傳參變量話題和分類到模板中
         return view('topics.index', compact('topics', 'category'));
     }

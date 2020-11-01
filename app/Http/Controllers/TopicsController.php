@@ -14,11 +14,13 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index()
-	{     //默認的分頁是15
-		$topics = Topic::with('user', 'category')->paginate(30);
-		return view('topics.index', compact('topics'));
-	}
+    public function index(Request $request, Topic $topic)
+    {    
+        $topics = $topic->withOrder($request->order)
+                        ->with('user', 'category')  //預加載，防止N+1問題
+                        ->paginate(20);
+        return view('topics.index', compact('topics'));
+    }
 
     public function show(Topic $topic)
     {
