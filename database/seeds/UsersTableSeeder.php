@@ -16,10 +16,12 @@ class UsersTableSeeder extends Seeder
         $users = factory(User::class)->times(10)->create();
 
         $user =User::find(1);
-        $user->name = 'Summer';
-        $user->email = 'summer@example.com';
-        $user->avatar = 'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png';
-        $user->save();
+        // 初始化用戶角色，將 1 号用戶指派为『站長』
+        $user->assignRole('Founder');
+
+        // 將 2 号用戶指派為『管理員』
+        $user = User::find(2);
+        $user->assignRole('Maintainer');
 
     }
 }
