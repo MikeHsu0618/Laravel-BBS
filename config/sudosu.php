@@ -14,8 +14,8 @@ return [
     | .local, simply add it to the arrow below.
     |
      *///允許使用的頂級域名
-    
-    'allowed_tlds' => ['dev', 'local', 'test'],
+
+    'allowed_tlds' => ['dev', 'local', 'test' , 'localhost' , '1'],
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     | displayed in the select dropdown. This must be an Eloquent Model instance.
     |
      */
-    
+
     'user_model' => App\Models\User::class
-    
+
 ];
